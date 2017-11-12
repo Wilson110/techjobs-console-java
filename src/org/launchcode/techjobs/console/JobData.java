@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -73,7 +74,6 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
-
             String aValue = row.get(column);
 
             if (aValue.contains(value)) {
@@ -81,6 +81,37 @@ public class JobData {
             }
         }
 
+        return jobs;
+    }
+
+    /*
+    New Method: findByValue
+    1. Add before private methods
+    2. loadData(); method call
+    2. create an ArrayList that will hold return value for jobs
+    3. define a string variable for searching, use .toLowerCase() method
+    4. create a for-loop that iterates through the HashMap keys looking for the searchTerm
+    5. if one of the keys in the HashMap matches the searchTerm, add it to the jobs ArrayList
+        -> make everything lowercase, use .toLowerCase() method
+        -> use .contains() method to find match
+        -> I can chain methods in Java
+    6. exit it the loop
+    7. return the jobs ArrayList
+    */
+    public static ArrayList<HashMap<String, String>> findByValue(String searchTerm) {
+        searchTerm = searchTerm.toLowerCase();
+
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        for (HashMap<String, String> job: allJobs) {
+            for (String key : job.keySet()) {
+                if (job.get(key).toLowerCase().contains(searchTerm)) {
+                    jobs.add(job);
+                    break;
+                } // exit conditional
+            } // exit for-loop
+        } // exit for-loop
         return jobs;
     }
 
